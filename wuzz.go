@@ -33,7 +33,7 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-const VERSION = "0.4.0"
+const VERSION = "0.5.0"
 
 const TIMEOUT_DURATION = 5 // in seconds
 const WINDOWS_OS = "windows"
@@ -793,6 +793,7 @@ func (a *App) SubmitRequest(g *gocui.Gui, _ *gocui.View) error {
 		// parse POST/PUT/PATCH data
 		if r.Method == http.MethodPost || r.Method == http.MethodPut || r.Method == http.MethodPatch {
 			bodyStr := getViewValue(g, REQUEST_DATA_VIEW)
+			r.Data = bodyStr
 			if headers.Get("Content-Type") != "multipart/form-data" {
 				if headers.Get("Content-Type") == "application/x-www-form-urlencoded" {
 					bodyStr = strings.Replace(bodyStr, "\n", "&", -1)
